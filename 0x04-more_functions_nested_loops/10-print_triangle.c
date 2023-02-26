@@ -4,7 +4,7 @@
  * print_triangle - a function that prints a triangle, followed by a new line.
  * If size is 0 or less, the function should print only a new line
  *
- * @size - size of the triangle
+ * @size: size of the triangle
  *
  * Return: nothing on success
  */
