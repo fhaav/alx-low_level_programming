@@ -1,0 +1,1 @@
+0x13. C - More singly linked lists (C, Algorithm, Data structure): A singly linked list is a collection of data called nodes, where each node is divided into two parts to store data and address at some random addresses. The pointer next, points to the address of the next node in a list. Compared to the array data structure, the size of the linked list elements is not fixed.
