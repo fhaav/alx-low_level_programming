@@ -45,7 +45,7 @@ size_t free_listint_safe(listint_t **h)
 	{
 		for (a = 0; a < count; a++)
 		{
-			if ((*h) == old[a])
+			if (*h == old[a])
 			{
 				*h = NULL;
 				free(old);
