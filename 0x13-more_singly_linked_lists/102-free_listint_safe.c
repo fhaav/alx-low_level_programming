@@ -54,7 +54,7 @@ size_t free_listint_safe(listint_t **h)
 		}
 		count++;
 		old = _memory(old, count, *h);
-		next = (*h)->next->next;
+		next = (*h)->next;
 		free(*h);
 		*h = next;
 	}
