@@ -37,9 +37,11 @@ int set_bit(unsigned long int *n, unsigned int index)
 	num_bits = count_bits(*n);
 	if (index >= num_bits)
 	{
+		*n |= 1UL << index;
+		return (0);
+	}
+	else
+	{
 		return (-1);
 	}
-
-	*n |= (1UL << index);
-	return (1);
 }
