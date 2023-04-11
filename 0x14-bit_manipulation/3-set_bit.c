@@ -29,7 +29,7 @@ int set_bit(unsigned long int *n, unsigned int index)
 {
 	unsigned int num_bits;
 
-	if (index >= sizeof(unsigned long int) * 8)
+	if (index > 63)
 		return (-1);
 
 	num_bits = count_bits(*n);
