@@ -55,7 +55,7 @@ void copy_file(char *file_from, char *file_to)
 		exit(98);
 	}
 
-	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd_t == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s: %s\n",
