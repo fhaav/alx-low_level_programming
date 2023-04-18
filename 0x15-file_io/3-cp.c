@@ -62,6 +62,13 @@ void copy_file(char *file_from, char *file_to)
 
 	while ((nr = read(fd_f, buffer, BUFFER_SIZE)) > 0)
 	{
+		if (nr == -1)
+		{
+			close(fd_f);
+			close(fd_t);
+			error(strerror(errno));
+		}
+
 		nw = write(fd_t, buffer, nr);
 		if (nw == -1)
 		{
@@ -74,12 +81,6 @@ void copy_file(char *file_from, char *file_to)
 			close(fd_f);
 			close(fd_t);
 			error("Incomplete write");
-		}
-		if (nr == -1)
-		{
-			close(fd_f);
-			close(fd_t);
-			error(strerror(errno));
 		}
 	}
 	if (close(fd_f) == -1)
