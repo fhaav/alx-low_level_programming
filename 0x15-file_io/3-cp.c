@@ -75,12 +75,12 @@ void copy_file(char *file_from, char *file_to)
 			close(fd_t);
 			error("Incomplete write");
 		}
-	}
-	if (nr == -1)
-	{
-		close(fd_f);
-		close(fd_t);
-		error(strerror(errno));
+		if (nr == -1)
+		{
+			close(fd_f);
+			close(fd_t);
+			error(strerror(errno));
+		}
 	}
 	if (close(fd_f) == -1)
 	{
