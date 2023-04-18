@@ -87,12 +87,12 @@ void copy_file(char *file_from, char *file_to)
 	}
 	if (close(fd_f) == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't close fd %d\n", fd_f);
+		dprintf(STDERR_FILENO, "Error: can't close fd %ld\n", fd_f);
 		exit(100);
 	}
 	if (close(fd_t) == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't close fd %d\n", fd_t);
+		dprintf(STDERR_FILENO, "Error: can't close fd %ld\n", fd_t);
 		exit(100);
 	}
 }
