@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 1024
 
 /**
  * main - a program that copies the content of a file to another file.
