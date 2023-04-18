@@ -61,7 +61,7 @@ void copy_file(char *file_from, char *file_to)
 		exit(99);
 	}
 
-	while (nr = read(fd_f, buffer, BUFFER_SIZE))
+	while ((nr = read(fd_f, buffer, BUFFER_SIZE)))
 	{
 		if (nr == -1)
 		{
