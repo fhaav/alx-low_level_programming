@@ -50,46 +50,52 @@ void copy_file(char *file_from, char *file_to)
 	fd_f = open(file_from, O_RDONLY);
 	if (fd_f == -1)
 	{
-		error(strerror(errno));
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s",
+				file_from);
+		exit(98);
 	}
 
 	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0664);
 	if (fd_t == -1)
 	{
-		close(fd_f);
-		error(strerror(errno));
+		dprintf(STDERR_FILENO, "Error: Can't write to %s: %s\n",
+				file_to);
+		exit(99);
 	}
 
 	while ((nr = read(fd_f, buffer, BUFFER_SIZE)) > 0)
 	{
 		if (nr == -1)
 		{
-			close(fd_f);
-			close(fd_t);
-			error(strerror(errno));
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s:
+					%s\n",file_from);
+			exit(98);
 		}
 
 		nw = write(fd_t, buffer, nr);
 		if (nw == -1)
 		{
-			close(fd_f);
-			close(fd_t);
-			error(strerror(errno));
+			dprintf(STDERR_FILENO, "Error: Can't write to %s: %s\n",
+					file_to);
+			exit(99);
 		}
 		if (nw != nr)
 		{
-			close(fd_f);
-			close(fd_t);
-			error("Incomplete write");
+			dprintf(STDERR_FILENO, "Error: Incomplete write %s\n",
+					file_to);
+			exit(99);
+
 		}
 	}
 	if (close(fd_f) == -1)
 	{
-		error(strerror(errno));
+		dprintf(STDERR_FILENO, "Error: can't close fd %d: %s\n", fd_f);
+		exit(100);
 	}
 	if (close(fd_t) == -1)
 	{
-		error(strerror(errno));
+		dprintf(STDERR_FILENO, "Error: can't close fd %d: %s\n", fd_t);
+		exit(100);
 	}
 }
 
