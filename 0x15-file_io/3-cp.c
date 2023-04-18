@@ -11,7 +11,6 @@
  */
 
 void copy_file(char *file_from, char *file_to);
-void error(char *message);
 
 /**
  * main - a program that copies the content of a file to another file.
@@ -25,7 +24,8 @@ int main(int argc, char *argv[])
 {
 	if (argc != 3)
 	{
-		error("Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
 
 	copy_file(argv[1], argv[2]);
@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
  */
 void copy_file(char *file_from, char *file_to)
 {
-	int fd_f;
-	int fd_t;
+	ssize_t fd_f;
+	ssize_t fd_t;
 	ssize_t nr;
 	ssize_t nw;
 	char buffer[BUFFER_SIZE];
@@ -95,15 +95,4 @@ void copy_file(char *file_from, char *file_to)
 		dprintf(STDERR_FILENO, "Error: can't close fd %ld\n", fd_t);
 		exit(100);
 	}
-}
-
-/**
- * error - ...
- * @message: ...
- * Return: ...
- */
-void error(char *message)
-{
-	fprintf(stderr, "Error: %s\n", message);
-	exit(EXIT_FAILURE);
 }
