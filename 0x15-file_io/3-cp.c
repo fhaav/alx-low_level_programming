@@ -50,7 +50,7 @@ void copy_file(char *file_from, char *file_to)
 	fd_f = open(file_from, O_RDONLY);
 	if (fd_f == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s",
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n",
 				file_from);
 		exit(98);
 	}
