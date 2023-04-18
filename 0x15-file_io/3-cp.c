@@ -53,7 +53,7 @@ void copy_file(char *file_from, char *file_to)
 		error(strerror(errno));
 	}
 
-	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0664);
 	if (fd_t == -1)
 	{
 		close(fd_f);
