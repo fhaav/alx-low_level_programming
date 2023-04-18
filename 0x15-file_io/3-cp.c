@@ -50,8 +50,7 @@ void copy_file(char *file_from, char *file_to)
 	fd_f = open(file_from, O_RDONLY);
 	if (fd_f == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n",
-				file_from);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
@@ -62,7 +61,7 @@ void copy_file(char *file_from, char *file_to)
 		exit(99);
 	}
 
-	while ((nr = read(fd_f, buffer, BUFFER_SIZE)) > 0)
+	while (nr = read(fd_f, buffer, BUFFER_SIZE))
 	{
 		if (nr == -1)
 		{
@@ -73,14 +72,12 @@ void copy_file(char *file_from, char *file_to)
 		nw = write(fd_t, buffer, nr);
 		if (nw == -1)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
-					file_to);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 			exit(99);
 		}
 		if (nw != nr)
 		{
-			dprintf(STDERR_FILENO, "Error: Incomplete write %s\n",
-					file_to);
+			dprintf(STDERR_FILENO, "Error: Incomplete write %s\n", file_to);
 			exit(99);
 
 		}
