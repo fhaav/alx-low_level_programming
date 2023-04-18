@@ -1,5 +1,18 @@
 #include "main.h"
 
+#define BUFFER_SIZE 4096
+
+/**
+ * main - a program that copies the content of a file to another file.
+ *
+ * @file_from: ...
+ * @file_to: ...
+ * Return: ...
+ */
+
+void copy_file(char *file_from, char *file_to);
+void error(char *message);
+
 /**
  * main - a program that copies the content of a file to another file.
  *
@@ -10,51 +23,66 @@
 
 int main(int argc, char *argv[])
 {
-	int fd_f;
-	int fd_t;
-	int nr;
-	int nw;
-	char buffer[BUFFER_SIZE];
-
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	fd_f = open(argv[1], O_RDONLY);
+
+	copy_file(argv[1], argv[2]);
+	return (0);
+}
+
+/**
+ * copy_file - ...
+ * @file_from: ...
+ * @file_to: ...
+ * Return: 0 on success
+ */
+void copy_file(char *file_from, char *file_to)
+{
+	int fd_f;
+	int fd_t;
+	ssize_t nr;
+	ssize_t nw;
+	char buffer[BUFFER_SIZE];
+
+	fd_f = open(file_from, O_RDONLY);
 	if (fd_f == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s: %s\n",
-				argv[1], strerror(errno));
+				file_from, strerror(errno));
 		exit(98);
 	}
-	fd_t = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
+	fd_t = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_t == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s: %s\n",
-				argv[2], strerror(errno));
+				file_to, strerror(errno));
 		exit(99);
 	}
+
 	while ((nr = read(fd_f, buffer, BUFFER_SIZE)) > 0)
 	{
 		nw = write(fd_t, buffer, nr);
 		if (nw == -1)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s: %s\n",
-					argv[2], strerror(errno));
+					file_to, strerror(errno));
 			exit(99);
 		}
 		if (nw != nr)
 		{
 			dprintf(STDERR_FILENO, "Error: Incomplete write %s\n",
-					argv[2]);
+					file_to);
 			exit(99);
 		}
 	}
 	if (nr == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s: %s\n",
-				argv[1], strerror(errno));
+				file_from, strerror(errno));
 		exit(98);
 	}
 	if (close(fd_f) == -1)
@@ -69,5 +97,15 @@ int main(int argc, char *argv[])
 				fd_t, strerror(errno));
 		exit(100);
 	}
-	return (0);
+}
+
+/**
+ * error - ...
+ * @message: ...
+ * Return: ...
+ */
+void error(char *message)
+{
+	fprintf(stderr, "Error: %s\n", message);
+	exit(EXIT_FAILURE);
 }
