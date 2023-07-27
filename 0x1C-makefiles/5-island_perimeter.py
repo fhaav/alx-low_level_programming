@@ -3,6 +3,7 @@
 Calculate the perimeter of a single island described in a rectangular grid.
 """
 
+
 def island_perimeter(grid):
     """
     Grid cells are connected horizontally and vertically, not diagonally.
